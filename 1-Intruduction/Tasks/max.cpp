@@ -22,9 +22,8 @@ int main(void)
 
     std::cout<<"======================================="<<std::endl;
 
-    max = (n1>n2)?n1:n2;
-
-    std::cout<<"the maximum number is "<<std::max(max,n3)<<std::endl;
+  
+    std::cout<<"the maximum number is "<<std::max(std::max(n1,n2),n3)<<std::endl;
 
 
     return 0;
