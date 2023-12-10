@@ -12,10 +12,12 @@ int main(void)
 	// Function_Pointers_test();
 	// Auto_test();
 	// test_Conversions();
-	  Test_Lambda_expression();
-
-	// Inline_Function_test();
-	// namespace_test();
+	// Test_Lambda_expression();
 	// Const_test();
+	//Constant_expressions();
+	// test_initialization();
+	// enum_test();
+	// Inline_Function_test();
+	 namespace_test();
 	
 }

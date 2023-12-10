@@ -1,4 +1,5 @@
 #include"header.hpp"
+#include<iostream>
 void print(int*);
 void const_val(const int*);
 void const_val_and_pointer(const int* const ptr);
@@ -8,13 +9,14 @@ void Const_test()
 {
 	/*
 	const Qualifier
-	• Creates a variable that is constant
-	• Value cannot be modified
-	• Attempt to modify will cause compilation error
-	• Qualified to a declaration, but always needs an initializer
-	• Replaces C macros
-	• Commonly used with references
-	• const <type> <variable> { initializer} const float PI {3.141f };
+	ï¿½ Creates a variable that is constant
+	ï¿½ Value cannot be modified
+	ï¿½ Attempt to modify will cause compilation error
+	ï¿½ Qualified to a declaration, but always needs an initializer
+	ï¿½ Replaces C macros
+	ï¿½ Commonly used with references
+	ï¿½ const <type> <variable> { initializer}
+	const float PI {3.141f };
 	*/
 
 	float radius = 0;
@@ -25,14 +27,19 @@ void Const_test()
 	std::cout << "Area is: " << area <<std::endl;
 	std::cout << "Circumference is : " << circumference << std::endl;
 
-
 	// const int yy;	 // compiler error const must be initialized if not extern
+	extern const int yy;
 	const int SIZE{ 512 };
 	//int* ptr = &SIZE; // error can't convert from const to int
 	const int* ptr = &SIZE;
 	// *ptr = 50;						// error you can't assigne to variable that is const
-	int x;
+	int x{10};
 	ptr = &x;        // alloed
+
+	std::cout << "&x " << &x << std::endl;
+	std::cout << "ptr " << ptr << std::endl;
+
+
 	//*ptr = 20;		// not allowed ptr is point to const data
 	const int VAR=10;
 	const int* const ptr2 = &VAR;    // const pointer point to const variable
@@ -46,8 +53,8 @@ void Const_test()
 
 	const int& ref5 = 5;       // allowd because constant 
 	int u = 10;
-	const_print(u);
-	const_print(20);       //  allowd because constant
+	const_print(u);        // 10 
+	const_print(20);       //  20  allowd because constant 
 
 
 }

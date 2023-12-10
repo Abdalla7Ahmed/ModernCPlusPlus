@@ -22,7 +22,6 @@ public:
     void removeContact(int user_id);
     void remove_all();
     void search(int user_id);
-    std::stack<info> getContacts();
     void printContact(info &contact);
 };
 
@@ -113,14 +112,6 @@ public:
             }
         }
         std::cout<<"No Contact found"<<std::endl;
-    }
-    std::stack<info> AddressBook::getContacts()
-    {
-        std::stack<info> INFO;
-
-
-        return INFO;
-
     }
     void AddressBook::printContact(info &contact)
     {

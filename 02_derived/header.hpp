@@ -20,3 +20,7 @@ void Function_Pointers_test(void);
 void namespace_test(void);
 
 void Test_Lambda_expression(void);
+
+void Constant_expressions(void);
+
+void enum_test(void);
