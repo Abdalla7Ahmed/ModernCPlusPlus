@@ -1,5 +1,5 @@
 #include<iostream>
-#include <stack>
+#include <queue>
 #include <string>
 
 struct info
@@ -13,66 +13,67 @@ struct info
 
 class AddressBook {
 private:
-    std::stack<struct info> lifoStack;
+std::queue<info> database;
+
 public:
     AddressBook()=default;
     ~AddressBook()=default;
     void list();
-    void addContact(info &contact);
+    void addContact(info *contact);
     void removeContact(int user_id);
     void remove_all();
     void search(int user_id);
-    void printContact(info &contact);
 };
 
     void AddressBook::list()
     {
-        std::stack<struct info> temp = lifoStack;
+        std::queue<info> temp = database;
         if(temp.empty())
         {
             std::cout<<"No Contacts to list"<<std::endl;
             return ;
         }
         std::cout <<"====== Listing all users ======= "<<std::endl;
-        while (!temp.empty()) {
-        std::cout << "Name: " << lifoStack.top().name << std::endl;
-        std::cout << "Phone: " << lifoStack.top().phone << std::endl;
-        std::cout << "Email: " << lifoStack.top().email << std::endl;
-        std::cout << "Age: " << lifoStack.top().age << std::endl;
-        std::cout << "User ID: " << lifoStack.top().user_id << std::endl;
+        while (!temp.empty()) 
+        {
+        std::cout << "Name: " << temp.front().name << std::endl;
+        std::cout << "Phone: " << temp.front().phone << std::endl;
+        std::cout << "Email: " << temp.front().email << std::endl;
+        std::cout << "Age: " << temp.front().age << std::endl;
+        std::cout << "User ID: " << temp.front().user_id << std::endl;
         temp.pop();
         std::cout<<"================================================================"<<std::endl;
         }
 
     }
-    void AddressBook::addContact(info &contact)
+
+    void AddressBook::addContact(info *contact)
     {
-        info contact_info;
-        contact_info.name = contact.name;
-        contact_info.phone = contact.phone;
-        contact_info.email = contact.email;
-        contact_info.age = contact.age;
-        contact_info.user_id = contact.user_id;
-        lifoStack.push(contact_info);
+        database.push(*contact);
         std::cout << "Contact added successfully!" << std::endl;
     }
     void AddressBook::removeContact(int user_id)
     {
-    std::stack<struct info> temp;
+        if(database.empty())
+        {
+            std::cout<<"No Contacts to list"<<std::endl;
+            return ;
+        }
+        std::queue<info> temp;
 
-    // Pop elements from lifoStack and push to temp until finding the contact
-    while (!lifoStack.empty()) {
-        if (lifoStack.top().user_id == user_id) {
-            lifoStack.pop(); // Remove the contact from lifoStack
+    // Pop elements from database and push to temp until finding the contact
+    while (!database.empty()) {
+        if (database.front().user_id == user_id) {
+            database.pop(); // Remove the contact from database
             break;
         }
-        temp.push(lifoStack.top());
-        lifoStack.pop();
+        temp.push(database.front());
+        database.pop();
     }
 
-    // Restore the elements back to lifoStack from temp
+    // Restore the elements back to database from temp
     while (!temp.empty()) {
-        lifoStack.push(temp.top());
+        database.push(temp.front());
         temp.pop();
     }
         
@@ -80,15 +81,15 @@ public:
     }
     void AddressBook::remove_all()
     {
-        while (!lifoStack.empty())
+        while (!database.empty())
         {
-            lifoStack.pop();
+            database.pop();
         }
     }
 
     void AddressBook::search(int user_id)
     {
-        std::stack<struct info> temp = lifoStack;
+        std::queue<info> temp = database;
 
         if(temp.empty())
         {
@@ -97,13 +98,13 @@ public:
         }
         while (!temp.empty()) 
         {
-            if(temp.top().user_id == user_id)
+            if(temp.front().user_id == user_id)
             {
-                std::cout << "Name: " << lifoStack.top().name << std::endl;
-                std::cout << "Phone: " << lifoStack.top().phone << std::endl;
-                std::cout << "Email: " << lifoStack.top().email << std::endl;
-                std::cout << "Age: " << lifoStack.top().age << std::endl;
-                std::cout << "User ID: " << lifoStack.top().user_id << std::endl;
+                std::cout << "Name: " << database.front().name << std::endl;
+                std::cout << "Phone: " << database.front().phone << std::endl;
+                std::cout << "Email: " << database.front().email << std::endl;
+                std::cout << "Age: " << database.front().age << std::endl;
+                std::cout << "User ID: " << database.front().user_id << std::endl;
                 return ;
             }
             else
@@ -113,21 +114,10 @@ public:
         }
         std::cout<<"No Contact found"<<std::endl;
     }
-    void AddressBook::printContact(info &contact)
-    {
-        std::cout << "Name: " << contact.name << std::endl;
-        std::cout << "Phone: " << contact.phone << std::endl;
-        std::cout << "Email: " << contact.email << std::endl;
-        std::cout << "Age: " << contact.age << std::endl;
-        std::cout << "User ID: " << contact.user_id << std::endl;
-
-    }
-
 int main(void)
 {
-    info s1;
     AddressBook ab;
-
+    info contact;
     int choice ,temp; 
     std::cout<<"Welcome to your vafourite address book !!"<<std::endl;
     while(1)
@@ -149,7 +139,7 @@ int main(void)
                 break;
             case 2:
             {
-                info contact;
+                
                 std::cout<<"Enter name: ";
                 std::cin>>contact.name;
                 std::cout<<"Enter phone: ";
@@ -160,7 +150,7 @@ int main(void)
                 std::cin>>contact.age;
                 std::cout<<"Enter user id: ";
                 std::cin>>contact.user_id;
-                ab.addContact(contact);
+                ab.addContact(&contact);
                 break;
             }
             case 3:
